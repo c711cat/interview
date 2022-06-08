@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog-wrap p-jc-start p-ai-center p-pt-4">
+  <div class="dialog-wrap p-jc-start p-ai-center p-py-4">
     <div class="enter-msg-container p-pb-3">
       <Textarea
         class="textarea-body p-pl-3 p-mb-1"
@@ -11,10 +11,14 @@
       />
       <button class="btn-body p-py-2" type="button">新增</button>
     </div>
-    <div class="msgs-container p-text-left p-p-3 p-mt-3">
+    <div
+      v-for="(item, index) in memoList"
+      :key="item + index"
+      class="msgs-container p-text-left p-p-3 p-mt-3"
+    >
       <img class="delete-msg-icon" src="@/img/ic_close2.png" alt="close_icon" />
-      <div class="date-and-time p-mb-2">2019/07/01 13:45</div>
-      <div class="p-text-bold">備忘訊息1</div>
+      <div class="date-and-time p-mb-2">{{ item.date }}</div>
+      <div class="p-text-bold">{{ item.message }}</div>
     </div>
   </div>
 </template>
@@ -26,6 +30,10 @@ export default {
   data() {
     return {
       value: "",
+      memoList: [
+        { date: "2019/07/01 13:45", message: "備忘訊息1" },
+        { date: "2019/07/01 13:45", message: "備忘訊息2" },
+      ],
     };
   },
   components: { Textarea },
@@ -43,6 +51,7 @@ export default {
   z-index: 9;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .dialog-wrap:after {
