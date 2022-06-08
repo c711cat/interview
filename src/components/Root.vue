@@ -1,8 +1,12 @@
 <template>
   <div class="wrap p-grid">
-    <div class="friends-list-container p-col-3 p-text-left">
-      <h4 class="friends-list-title">好友列表(3)</h4>
-      <div class="person-wrap p-grid p-py-3">
+    <div class="friends-list-container p-col-3 p-text-left p-px-0">
+      <h4 class="friends-list-title p-pb-3 p-mb-0 p-pl-2">好友列表(3)</h4>
+      <div
+        v-for="item in friendsList"
+        :key="item.name"
+        class="person-wrap p-grid p-py-3 p-m-0"
+      >
         <div class="p-d-flex p-jc-center p-ai-center">
           <Avatar
             class="img-wrap"
@@ -13,8 +17,8 @@
         </div>
 
         <div class="p-col-9">
-          <div class="name p-text-bold p-mt-0 p-mb-2">保羅</div>
-          <div class="introduction">大家好，我是保羅~</div>
+          <div class="name p-text-bold p-mt-0 p-mb-2">{{ item.name }}</div>
+          <div class="introduction">{{ item.introduction }}</div>
         </div>
       </div>
     </div>
@@ -59,7 +63,13 @@
 import Avatar from "primevue/avatar";
 export default {
   data() {
-    return {};
+    return {
+      friendsList: [
+        { name: "保羅", introduction: "大家好，我是保羅~" },
+        { name: "傑克", introduction: "大家好，我是傑克~" },
+        { name: "傑森", introduction: "大家好，我是傑森~" },
+      ],
+    };
   },
   components: { Avatar },
 };
@@ -86,6 +96,7 @@ export default {
 
 .friends-list-title {
   color: #4a4a4a;
+  border-bottom: 1px solid #a7f1e0;
 }
 
 .name {
@@ -98,7 +109,6 @@ export default {
 }
 
 .person-wrap {
-  border-top: 1px solid #a7f1e0;
   border-bottom: 1px solid #a7f1e0;
 }
 
