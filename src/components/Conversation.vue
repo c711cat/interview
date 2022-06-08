@@ -13,12 +13,42 @@
       </div>
       <div class="p-grid p-col-2 p-m-0 p-jc-end p-ai-center">
         <img
+          @click.prevent="search"
           class="icon-style p-mr-2"
           src="@/img/ic_search.png"
           alt="search_icon"
         />
 
         <img class="icon-style" src="@/img/ic_note.png" alt="note_icon" />
+      </div>
+    </div>
+
+    <div
+      v-if="isInput"
+      class="search-container p-grid p-m-0 p-jc-between p-ai-center p-pl-1"
+    >
+      <input
+        class="input-body p-col-9 p-text-left p-text-bold p-pl-3"
+        type="text"
+      />
+
+      <div class="p-col-3 p-d-flex p-jc-end p-ai-center p-pr-3">
+        <span class="search-result-text p-mr-4">1則相符訊息</span>
+        <img
+          @click.prevent="closeSearchInput"
+          class="close-icon"
+          src="@/img/ic_close1.png"
+          alt="close_icon"
+        />
+      </div>
+    </div>
+
+    <div class="conversation-content p-text-right p-d-flex p-pb-4">
+      <div class="text-container p-py-2 p-px-4 p-mr-3">保羅</div>
+      <div class="text-container p-py-2 p-px-4 p-mr-3">你好，我是潔西卡</div>
+      <div class="text-container p-py-2 p-px-4 p-mr-3">我喜歡吃的食物有</div>
+      <div class="text-container p-py-2 p-px-4 p-mr-3">
+        各種巧克力口味的甜點
       </div>
     </div>
 
@@ -40,13 +70,26 @@ import Avatar from "primevue/avatar";
 
 export default {
   data() {
-    return {};
+    return {
+      isInput: false,
+    };
   },
   components: { Avatar },
+  methods: {
+    search() {
+      this.isInput = true;
+    },
+    closeSearchInput() {
+      this.isInput = false;
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+* {
+  border: 1px solid black;
+}
 .conversation-wrap {
   height: 620px;
   flex-direction: column;
@@ -55,6 +98,7 @@ export default {
 .second-banner {
   box-shadow: 0px 3px 3px #e9e9e9;
 }
+
 .Paul {
   font-size: 20px;
 }
@@ -81,9 +125,46 @@ export default {
   border: 1px solid #d7d7d7;
 }
 
+.conversation-content {
+  height: 450px;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.text-container {
+  color: #ffffff;
+  background: #4a90e2;
+  border-radius: 24px;
+  margin-bottom: 4px;
+}
+
 .enter-messages-container {
   border-top: 1px solid #a7f1e0;
   height: 80px;
   color: #9b9b9b;
+}
+
+.search-container {
+  border-bottom: 1px solid #a7f1e0;
+  height: 70px;
+}
+
+.search-result-text {
+  color: #9b9b9b;
+}
+
+.close-icon {
+  width: 30px;
+}
+
+.input-body {
+  font-size: 16px;
+  border: none;
+  outline: medium;
+}
+
+.close-icon:hover {
+  cursor: pointer;
 }
 </style>
