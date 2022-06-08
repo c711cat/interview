@@ -19,8 +19,8 @@
       </div>
     </div>
 
-    <div class="p-col-9">
-      <div class="banner p-grid">
+    <div class="p-col-9 p-p-0">
+      <div class="banner p-grid p-m-0">
         <div
           class="Cherri-Chat-container p-grid p-col-10 p-m-0 p-jc-center p-ai-center"
         >
@@ -50,9 +50,7 @@
         </div>
       </div>
 
-      <div>
-        <router-view />
-      </div>
+      <router-view />
     </div>
   </div>
 </template>
