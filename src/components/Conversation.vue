@@ -1,6 +1,6 @@
 <template>
   <div class="conversation-wrap p-d-flex p-jc-between">
-    <div class="second-banner p-grid p-m-0 p-p-2">
+    <div class="second-banner p-grid p-m-0 p-py-1 p-px-2">
       <div class="p-grid p-col-10 p-m-0 p-jc-start p-ai-center">
         <Avatar
           class="img-wrap"
@@ -19,7 +19,12 @@
           alt="search_icon"
         />
 
-        <img class="icon-style" src="@/img/ic_note.png" alt="note_icon" />
+        <img
+          @click.prevent="openDialog"
+          class="icon-style"
+          src="@/img/ic_note.png"
+          alt="note_icon"
+        />
       </div>
     </div>
 
@@ -28,6 +33,7 @@
       class="search-container p-grid p-m-0 p-jc-between p-ai-center p-pl-1"
     >
       <input
+        v-model="value"
         class="input-body p-col-9 p-text-left p-text-bold p-pl-3"
         type="text"
       />
@@ -44,6 +50,9 @@
     </div>
 
     <div class="conversation-content p-text-right p-d-flex p-pb-4">
+      <div v-if="isOpenDialog" class="memo-container">
+        <Memo></Memo>
+      </div>
       <div class="text-container p-py-2 p-px-4 p-mr-3">保羅</div>
       <div class="text-container p-py-2 p-px-4 p-mr-3">你好，我是潔西卡</div>
       <div class="text-container p-py-2 p-px-4 p-mr-3">我喜歡吃的食物有</div>
@@ -67,29 +76,32 @@
 
 <script>
 import Avatar from "primevue/avatar";
+import Memo from "@/components/Memo.vue";
 
 export default {
   data() {
     return {
       isInput: false,
+      isOpenDialog: false,
+      value: "",
     };
   },
-  components: { Avatar },
+  components: { Avatar, Memo },
   methods: {
     search() {
-      this.isInput = true;
+      this.isInput = !this.isInput;
     },
     closeSearchInput() {
-      this.isInput = false;
+      this.value = "";
+    },
+    openDialog() {
+      this.isOpenDialog = !this.isOpenDialog;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-* {
-  border: 1px solid black;
-}
 .conversation-wrap {
   height: 620px;
   flex-direction: column;
@@ -97,6 +109,12 @@ export default {
 
 .second-banner {
   box-shadow: 0px 3px 3px #e9e9e9;
+}
+
+.memo-container {
+  position: absolute;
+  top: 4px;
+  right: 8px;
 }
 
 .Paul {
@@ -130,6 +148,8 @@ export default {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-end;
+  z-index: 1;
+  position: relative;
 }
 
 .text-container {
