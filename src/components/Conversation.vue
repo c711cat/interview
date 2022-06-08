@@ -47,12 +47,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  border: 1px solid black;
-}
-
 .conversation-wrap {
-  height: 600px;
+  height: 620px;
   flex-direction: column;
 }
 
@@ -88,5 +84,6 @@ export default {
 .enter-messages-container {
   border-top: 1px solid #a7f1e0;
   height: 80px;
+  color: #9b9b9b;
 }
 </style>
