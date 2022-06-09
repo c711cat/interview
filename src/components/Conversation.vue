@@ -15,7 +15,7 @@
       </div>
       <div class="p-grid p-col-2 p-m-0 p-jc-end p-ai-center">
         <img
-          @click.prevent="search"
+          @click.prevent="openAndCloseSearchInput"
           class="icon-style p-mr-2"
           src="@/img/ic_search.png"
           alt="search_icon"
@@ -23,7 +23,7 @@
         />
 
         <img
-          @click.prevent="openDialog"
+          @click.prevent="openAndCloseDialog"
           class="icon-style"
           src="@/img/ic_note.png"
           alt="note_icon"
@@ -65,7 +65,8 @@
         :key="item + index"
         class="text-container p-py-2 p-px-4 p-mr-3"
       >
-        {{ item }}
+        <mark v-if="searchText === item">{{ item }}</mark>
+        <div v-else>{{ item }}</div>
       </div>
     </div>
 
@@ -100,7 +101,7 @@ export default {
   components: { Avatar, Memo },
   inject: ["emitter"],
   methods: {
-    search() {
+    openAndCloseSearchInput() {
       this.isInput = !this.isInput;
       this.isOpenDialog = false;
       this.cleanSearchInput();
@@ -109,7 +110,7 @@ export default {
       this.searchText = "";
       this.match = [];
     },
-    openDialog() {
+    openAndCloseDialog() {
       this.isOpenDialog = !this.isOpenDialog;
       this.isInput = false;
     },
