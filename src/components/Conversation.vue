@@ -9,7 +9,9 @@
           shape="circle"
         />
 
-        <div class="Paul p-col-2 p-text-bold p-text-left">保羅</div>
+        <div class="Paul p-col-2 p-text-bold p-text-left">
+          {{ friend.name }}
+        </div>
       </div>
       <div class="p-grid p-col-2 p-m-0 p-jc-end p-ai-center">
         <img
@@ -83,6 +85,7 @@ export default {
   data() {
     return {
       conversationContents: [],
+      friend: [],
       isInput: false,
       isOpenDialog: false,
       value: "",
@@ -105,7 +108,9 @@ export default {
   created() {
     this.emitter.on("conversationContents", (data) => {
       this.conversationContents = data;
-      console.log(this.conversationContents);
+    });
+    this.emitter.on("friendName", (data) => {
+      this.friend = data;
     });
   },
 };

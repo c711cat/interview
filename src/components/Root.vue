@@ -16,7 +16,7 @@
           />
         </div>
 
-        <div @click.prevent="openTheFreiend(item.id)" class="p-col-9">
+        <div @click.prevent="openTheFreiend(item)" class="p-col-9">
           <div class="name p-text-bold p-mt-0 p-mb-2">{{ item.name }}</div>
           <div class="introduction">{{ item.introduction }}</div>
         </div>
@@ -76,15 +76,16 @@ export default {
         this.friendsList = { ...res.data };
       });
     },
-    getTheConversation(id) {
-      const api = `/conversation/${id}`;
+    getTheConversation(item) {
+      const api = `/conversation/${item.id}`;
       axios.get(api).then((res) => {
         this.emitter.emit("conversationContents", res.data);
+        this.emitter.emit("friendName", item);
       });
     },
-    openTheFreiend(id) {
-      this.$router.push(`/conversation/${id}`);
-      this.getTheConversation(id);
+    openTheFreiend(item) {
+      this.$router.push(`/conversation/${item.id}`);
+      this.getTheConversation(item);
     },
   },
   created() {
