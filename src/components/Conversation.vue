@@ -53,11 +53,12 @@
       <div v-if="isOpenDialog" class="memo-container">
         <Memo></Memo>
       </div>
-      <div class="text-container p-py-2 p-px-4 p-mr-3">保羅</div>
-      <div class="text-container p-py-2 p-px-4 p-mr-3">你好，我是潔西卡</div>
-      <div class="text-container p-py-2 p-px-4 p-mr-3">我喜歡吃的食物有</div>
-      <div class="text-container p-py-2 p-px-4 p-mr-3">
-        各種巧克力口味的甜點
+      <div
+        v-for="(item, index) in conversationContents"
+        :key="item + index"
+        class="text-container p-py-2 p-px-4 p-mr-3"
+      >
+        {{ item }}
       </div>
     </div>
 
@@ -81,12 +82,14 @@ import Memo from "@/components/Memo.vue";
 export default {
   data() {
     return {
+      conversationContents: [],
       isInput: false,
       isOpenDialog: false,
       value: "",
     };
   },
   components: { Avatar, Memo },
+  inject: ["emitter"],
   methods: {
     search() {
       this.isInput = !this.isInput;
@@ -97,6 +100,13 @@ export default {
     openDialog() {
       this.isOpenDialog = !this.isOpenDialog;
     },
+  },
+
+  created() {
+    this.emitter.on("conversationContents", (data) => {
+      this.conversationContents = data;
+      console.log(this.conversationContents);
+    });
   },
 };
 </script>

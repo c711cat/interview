@@ -53,7 +53,6 @@
           </div>
         </div>
       </div>
-
       <router-view />
     </div>
   </div>
@@ -70,10 +69,17 @@ export default {
     };
   },
   components: { Avatar },
+  inject: ["emitter"],
   methods: {
     getFriends() {
       axios.get("/friends").then((res) => {
         this.friendsList = { ...res.data };
+      });
+    },
+    getTheConversation(id) {
+      const api = `/conversation/${id}`;
+      axios.get(api).then((res) => {
+        this.emitter.emit("conversationContents", res.data);
       });
     },
     openTheFreiend(id) {
