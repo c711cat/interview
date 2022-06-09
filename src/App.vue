@@ -2,6 +2,19 @@
   <router-view />
 </template>
 
+<script>
+import emitter from "@/methods/emitter.js";
+
+export default {
+  data() {
+    return {};
+  },
+  provide() {
+    return { emitter };
+  },
+};
+</script>
+
 <style lang="scss">
 * {
   letter-spacing: 1px;
