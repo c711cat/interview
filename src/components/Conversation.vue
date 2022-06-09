@@ -19,6 +19,7 @@
           class="icon-style p-mr-2"
           src="@/img/ic_search.png"
           alt="search_icon"
+          :class="{ 'icon-active-style': isInput }"
         />
 
         <img
@@ -26,6 +27,7 @@
           class="icon-style"
           src="@/img/ic_note.png"
           alt="note_icon"
+          :class="{ 'icon-active-style': isOpenDialog }"
         />
       </div>
     </div>
@@ -96,12 +98,14 @@ export default {
   methods: {
     search() {
       this.isInput = !this.isInput;
+      this.isOpenDialog = false;
     },
     closeSearchInput() {
       this.value = "";
     },
     openDialog() {
       this.isOpenDialog = !this.isOpenDialog;
+      this.isInput = false;
     },
   },
 
