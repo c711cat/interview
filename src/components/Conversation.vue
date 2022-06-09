@@ -44,9 +44,9 @@
       />
 
       <div class="p-col-3 p-d-flex p-jc-end p-ai-center p-pr-3">
-        <span class="search-result-text p-mr-4"
-          >{{ match.length }}則相符訊息</span
-        >
+        <span v-if="match.length >= 1" class="search-result-text p-mr-4">
+          {{ match.length }}則相符訊息
+        </span>
         <img
           @click.prevent="cleanSearchInput"
           class="close-icon"
@@ -65,7 +65,7 @@
         :key="item + index"
         class="text-container p-py-2 p-px-4 p-mr-3"
       >
-        <mark v-if="searchText === item">{{ item }}</mark>
+        <mark v-if="searchText === item && match.length >= 1">{{ item }}</mark>
         <div v-else>{{ item }}</div>
       </div>
     </div>
