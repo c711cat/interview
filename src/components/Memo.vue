@@ -1,24 +1,30 @@
 <template>
-  <div class="dialog-wrap p-jc-start p-ai-center p-py-4">
-    <div class="enter-msg-container p-pb-3">
-      <Textarea
-        class="textarea-body p-pl-3 p-mb-1"
-        v-model="value"
-        :autoResize="true"
-        rows="5"
-        cols="10"
-        placeholder="輸入訊息..."
-      />
-      <button class="btn-body p-py-2" type="button">新增</button>
-    </div>
-    <div
-      v-for="(item, index) in memoList"
-      :key="item + index"
-      class="msgs-container p-text-left p-p-3 p-mt-3"
-    >
-      <img class="delete-msg-icon" src="@/img/ic_close2.png" alt="close_icon" />
-      <div class="date-and-time p-mb-2">{{ item.date }}</div>
-      <div class="p-text-bold">{{ item.message }}</div>
+  <div class="dialog-wrap p-jc-start p-ai-center">
+    <div class="inner-wrap p-m-4 p-px-4">
+      <div class="enter-msg-container p-pb-3">
+        <Textarea
+          class="textarea-body p-pl-3 p-mb-1"
+          v-model="value"
+          :autoResize="true"
+          rows="5"
+          cols="10"
+          placeholder="輸入訊息..."
+        />
+        <button class="btn-body p-py-2" type="button">新增</button>
+      </div>
+      <div
+        v-for="(item, index) in memoList"
+        :key="item + index"
+        class="msgs-container p-text-left p-p-3 p-mt-3"
+      >
+        <img
+          class="delete-msg-icon"
+          src="@/img/ic_close2.png"
+          alt="close_icon"
+        />
+        <div class="date-and-time p-mb-2">{{ item.date }}</div>
+        <div class="p-text-bold">{{ item.message }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -41,6 +47,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+  border: 1px solid black;
+}
 .dialog-wrap {
   width: 500px;
   height: 400px;
@@ -51,7 +60,6 @@ export default {
   z-index: 9;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
 }
 
 .dialog-wrap:after {
@@ -67,9 +75,13 @@ export default {
   border-bottom-color: #ffffff;
 }
 
+.inner-wrap {
+  overflow-y: auto;
+  width: 100%;
+}
+
 .enter-msg-container {
   border-bottom: 1px solid #a7f1e0;
-  width: 90%;
 }
 
 .textarea-body {
@@ -90,7 +102,6 @@ export default {
 
 .msgs-container {
   border: 1px solid #a7f1e0;
-  width: 90%;
   height: 100px;
   position: relative;
 }
