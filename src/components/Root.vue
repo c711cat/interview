@@ -6,6 +6,7 @@
         v-for="item in friendsList"
         :key="item.id"
         class="person-wrap p-grid p-py-3 p-m-0"
+        :class="{ 'background-color-style': item.id === friend.id }"
       >
         <div class="p-d-flex p-jc-center p-ai-center">
           <Avatar
@@ -66,6 +67,7 @@ export default {
   data() {
     return {
       friendsList: [],
+      friend: {},
     };
   },
   components: { Avatar },
@@ -81,6 +83,7 @@ export default {
       axios.get(api).then((res) => {
         this.emitter.emit("conversationContents", res.data);
         this.emitter.emit("friendName", item);
+        this.friend = item;
       });
     },
     openTheFreiend(item) {
@@ -131,6 +134,11 @@ export default {
   border-bottom: 1px solid #a7f1e0;
 }
 
+.person-wrap:hover {
+  cursor: pointer;
+  background: #f4f4f4;
+}
+
 .img-wrap {
   border: 1px solid #a7f1e0;
 }
@@ -165,5 +173,9 @@ export default {
 
 .Jessica {
   font-size: 17px;
+}
+
+.background-color-style {
+  background: #f4f4f4;
 }
 </style>
