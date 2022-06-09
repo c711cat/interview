@@ -95,7 +95,6 @@ export default {
       isOpenDialog: false,
       searchText: "",
       match: [],
-      demo: ["f", "g", "kk", "ffff", "wsfw"],
     };
   },
   components: { Avatar, Memo },

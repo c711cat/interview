@@ -47,9 +47,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  border: 1px solid black;
-}
 .dialog-wrap {
   width: 500px;
   height: 400px;
