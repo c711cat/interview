@@ -7,13 +7,27 @@ export function makeServer() {
       friend: Model,
     },
 
+    seeds(server) {
+      server.create("friend", {
+        id: "1",
+        name: "保羅",
+        introduction: "大家好，我是保羅~",
+      });
+      server.create("friend", {
+        id: "2",
+        name: "傑克",
+        introduction: "大家好，我是傑克~",
+      });
+      server.create("friend", {
+        id: "3",
+        name: "傑森",
+        introduction: "大家好，我是傑森~",
+      });
+    },
+
     routes() {
-      this.get("/friends", () => {
-        return [
-          { id: "1", name: "保羅", introduction: "大家好，我是保羅~" },
-          { id: "2", name: "傑克", introduction: "大家好，我是傑克~" },
-          { id: "3", name: "傑森", introduction: "大家好，我是傑森~" },
-        ];
+      this.get("/friends", (schema) => {
+        return schema.friends.all();
       });
       this.get("/conversation/1", () => {
         return [
