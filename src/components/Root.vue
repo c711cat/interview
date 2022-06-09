@@ -4,7 +4,7 @@
       <h4 class="friends-list-title p-pb-3 p-mb-0 p-pl-2">好友列表(3)</h4>
       <div
         v-for="item in friendsList"
-        :key="item.name"
+        :key="item.id"
         class="person-wrap p-grid p-py-3 p-m-0"
       >
         <div class="p-d-flex p-jc-center p-ai-center">
@@ -16,7 +16,7 @@
           />
         </div>
 
-        <div class="p-col-9">
+        <div @click.prevent="openTheFreiend(item.id)" class="p-col-9">
           <div class="name p-text-bold p-mt-0 p-mb-2">{{ item.name }}</div>
           <div class="introduction">{{ item.introduction }}</div>
         </div>
@@ -75,6 +75,10 @@ export default {
       axios.get("/friends").then((res) => {
         this.friendsList = { ...res.data };
       });
+    },
+    openTheFreiend(id) {
+      this.$router.push(`/conversation/${id}`);
+      this.getTheConversation(id);
     },
   },
   created() {

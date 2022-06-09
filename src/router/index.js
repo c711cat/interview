@@ -10,7 +10,7 @@ const routes = [
         component: () => import("@/components/Home.vue"),
       },
       {
-        path: "conversation",
+        path: "conversation/:friendId",
         component: () => import("@/components/Conversation.vue"),
       },
     ],
