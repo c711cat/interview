@@ -6,6 +6,7 @@ export function makeServer() {
     models: {
       friend: Model,
       message: Model,
+      memo: Model,
     },
 
     seeds(server) {
@@ -43,9 +44,38 @@ export function makeServer() {
         friendId: "3",
         content: ["傑森", "你好，我是潔西卡", "我喜歡的動物為", "貓,狗"],
       });
+
+      server.create("memo", {
+        contents: [
+          { date: "2019/07/01 13:45", text: "Paul-1" },
+          { date: "2019/07/02 13:45", text: "Paul-2" },
+        ],
+      });
+      server.create("memo", {
+        contents: [
+          { date: "2019/07/01 13:45", text: "Jack-1" },
+          { date: "2019/07/02 13:45", text: "Jack-2" },
+        ],
+      });
+      server.create("memo", {
+        contents: [
+          { date: "2019/07/01 13:45", text: "Jason-1" },
+          { date: "2019/07/02 13:45", text: "Jason-2" },
+        ],
+      });
     },
 
     routes() {
+      this.get("/memos/:id", (schema, request) => {
+        let the_memo = [];
+        schema.memos.all().filter((item) => {
+          if (item.id === request.params.id) {
+            the_memo = item;
+          }
+        });
+        return the_memo;
+      });
+
       this.get("/messages/:friendId", (schema, request) => {
         let id = request.params.friendId;
         let all_msgs = schema.messages.all();
@@ -61,6 +91,7 @@ export function makeServer() {
       this.get("/memos", (schema) => {
         return schema.memos.all();
       });
+
       this.get("/friends", (schema) => {
         return schema.friends.all();
       });

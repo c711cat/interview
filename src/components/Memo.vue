@@ -23,7 +23,7 @@
           alt="close_icon"
         />
         <div class="date-and-time p-mb-2">{{ item.date }}</div>
-        <div class="p-text-bold">{{ item.message }}</div>
+        <div class="p-text-bold">{{ item.text }}</div>
       </div>
     </div>
   </div>
@@ -36,13 +36,15 @@ export default {
   data() {
     return {
       value: "",
-      memoList: [
-        { date: "2019/07/01 13:45", message: "備忘訊息1" },
-        { date: "2019/07/01 13:45", message: "備忘訊息2" },
-      ],
     };
   },
   components: { Textarea },
+  props: {
+    memoList: {
+      Type: Object,
+    },
+  },
+  created() {},
 };
 </script>
 

@@ -58,7 +58,7 @@
 
     <div class="conversation-content p-text-right p-d-flex p-pb-4">
       <div v-if="isOpenDialog" class="memo-container">
-        <Memo></Memo>
+        <Memo :memoList="friendMemos"></Memo>
       </div>
       <div
         v-for="(item, index) in conversationContents"
@@ -86,6 +86,7 @@
 <script>
 import Avatar from "primevue/avatar";
 import Memo from "@/components/Memo.vue";
+import axios from "axios";
 
 export default {
   data() {
@@ -96,6 +97,7 @@ export default {
       isOpenDialog: false,
       searchText: "",
       match: [],
+      friendMemos: {},
     };
   },
   components: { Avatar, Memo },
@@ -111,6 +113,7 @@ export default {
       this.match = [];
     },
     openAndCloseDialog() {
+      this.getTheFriendMemos();
       this.isOpenDialog = !this.isOpenDialog;
       this.isInput = false;
     },
@@ -120,6 +123,13 @@ export default {
         if (item === text) {
           this.match.push(item);
         }
+      });
+    },
+    getTheFriendMemos() {
+      const api = `/memos/${this.$route.params.friendId}`;
+      axios.get(api).then((res) => {
+        console.log(res);
+        this.friendMemos = res.data.memo.contents;
       });
     },
   },
