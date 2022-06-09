@@ -75,7 +75,7 @@ export default {
   methods: {
     getFriends() {
       axios.get("/friends").then((res) => {
-        this.friendsList = { ...res.data };
+        this.friendsList = { ...res.data.friends };
       });
     },
     getTheConversation(item) {
