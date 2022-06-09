@@ -37,15 +37,18 @@
       class="search-container p-grid p-m-0 p-jc-between p-ai-center p-pl-1"
     >
       <input
-        v-model="value"
+        @change="searcher(searchText)"
+        v-model="searchText"
         class="input-body p-col-9 p-text-left p-text-bold p-pl-3"
         type="text"
       />
 
       <div class="p-col-3 p-d-flex p-jc-end p-ai-center p-pr-3">
-        <span class="search-result-text p-mr-4">1則相符訊息</span>
+        <span class="search-result-text p-mr-4"
+          >{{ match.length }}則相符訊息</span
+        >
         <img
-          @click.prevent="closeSearchInput"
+          @click.prevent="cleanSearchInput"
           class="close-icon"
           src="@/img/ic_close1.png"
           alt="close_icon"
@@ -90,7 +93,9 @@ export default {
       friend: [],
       isInput: false,
       isOpenDialog: false,
-      value: "",
+      searchText: "",
+      match: [],
+      demo: ["f", "g", "kk", "ffff", "wsfw"],
     };
   },
   components: { Avatar, Memo },
@@ -99,13 +104,23 @@ export default {
     search() {
       this.isInput = !this.isInput;
       this.isOpenDialog = false;
+      this.cleanSearchInput();
     },
-    closeSearchInput() {
-      this.value = "";
+    cleanSearchInput() {
+      this.searchText = "";
+      this.match = [];
     },
     openDialog() {
       this.isOpenDialog = !this.isOpenDialog;
       this.isInput = false;
+    },
+    searcher(text) {
+      this.match = [];
+      this.conversationContents.filter((item) => {
+        if (item === text) {
+          this.match.push(item);
+        }
+      });
     },
   },
 
