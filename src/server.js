@@ -5,6 +5,7 @@ export function makeServer() {
   let server = createServer({
     models: {
       friend: Model,
+      message: Model,
     },
 
     seeds(server) {
@@ -23,25 +24,45 @@ export function makeServer() {
         name: "傑森",
         introduction: "大家好，我是傑森~",
       });
-    },
-
-    routes() {
-      this.get("/friends", (schema) => {
-        return schema.friends.all();
-      });
-      this.get("/conversation/1", () => {
-        return [
+      server.create("message", {
+        friendId: "1",
+        content: [
           "保羅",
           "你好，我是潔西卡",
           "我喜歡吃的食物有",
           "各種巧克力口味的甜點",
-        ];
+        ],
       });
-      this.get("/conversation/2", () => {
-        return ["傑克", "你好，我是潔西卡", "我喜歡做的運動為", "游泳,跑步"];
+
+      server.create("message", {
+        friendId: "2",
+        content: ["傑克", "你好，我是潔西卡", "我喜歡做的運動為", "游泳,跑步"],
       });
-      this.get("/conversation/3", () => {
-        return ["傑森", "你好，我是潔西卡", "我喜歡的動物為", "貓,狗"];
+
+      server.create("message", {
+        friendId: "3",
+        content: ["傑森", "你好，我是潔西卡", "我喜歡的動物為", "貓,狗"],
+      });
+    },
+
+    routes() {
+      this.get("/messages/:friendId", (schema, request) => {
+        let id = request.params.friendId;
+        let all_msgs = schema.messages.all();
+        let the_msg = [];
+        all_msgs.filter((item) => {
+          if (item.friendId === id) {
+            the_msg = item;
+          }
+        });
+        return the_msg;
+      });
+
+      this.get("/memos", (schema) => {
+        return schema.memos.all();
+      });
+      this.get("/friends", (schema) => {
+        return schema.friends.all();
       });
     },
   });

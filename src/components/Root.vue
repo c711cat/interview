@@ -79,9 +79,9 @@ export default {
       });
     },
     getTheConversation(item) {
-      const api = `/conversation/${item.id}`;
+      const api = `/messages/${item.id}`;
       axios.get(api).then((res) => {
-        this.emitter.emit("conversationContents", res.data);
+        this.emitter.emit("conversationContents", res.data.message.content);
         this.emitter.emit("friendName", item);
         this.friend = item;
       });
