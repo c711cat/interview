@@ -93,6 +93,10 @@ export function makeServer() {
         return schema.memotests.create(attrs);
       });
 
+      this.delete("/delete/:memoId", (schema, request) => {
+        let id = request.params.memoId;
+        return schema.memotests.find(id).destroy();
+      });
 
       this.get("/messages/:friendId", (schema, request) => {
         let id = request.params.friendId;
