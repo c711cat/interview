@@ -20,7 +20,7 @@
         class="msgs-container p-text-left p-p-3 p-mt-3"
       >
         <img
-          @click.prevent="delTheMemo"
+          @click.prevent="delTheMemo(item)"
           class="delete-msg-icon"
           src="@/img/ic_close2.png"
           alt="close_icon"
@@ -56,8 +56,12 @@ export default {
     },
   },
   methods: {
-    delTheMemo() {
-      console.log("6");
+    delTheMemo(item) {
+      const api = `/delete/${item.id}`;
+      axios.delete(api).then((res) => {
+        return res;
+      });
+      this.get_memotests();
     },
     addMemo() {
       const time = new Date().toLocaleString("taiwan", { hour12: false });
