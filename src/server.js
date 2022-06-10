@@ -66,6 +66,18 @@ export function makeServer() {
     },
 
     routes() {
+      this.post("/memostext/:friendId", (schema, request) => {
+        let attrs = JSON.parse(request.requestBody);
+        let id = request.params.friendId;
+        let all_memos = schema.memos.all();
+        all_memos.filter((item) => {
+          if (item.attrs.id === id) {
+            item.contents.push(attrs);
+            return item;
+          }
+        });
+        return schema.memos.create(attrs);
+      });
       this.get("/memos/:id", (schema, request) => {
         let the_memo = [];
         schema.memos.all().filter((item) => {
