@@ -113,7 +113,7 @@ export default {
       this.match = [];
     },
     openAndCloseDialog() {
-      this.getTheFriendMemos();
+      this.getMemo();
       this.isOpenDialog = !this.isOpenDialog;
       this.isInput = false;
     },
@@ -125,10 +125,11 @@ export default {
         }
       });
     },
-    getTheFriendMemos() {
-      const api = `/memos/${this.$route.params.friendId}`;
+    getMemo() {
+      const api = `/memotests/${this.$route.params.friendId}`;
       axios.get(api).then((res) => {
-        this.friendMemos = res.data.memo;
+        console.log(res);
+        this.friendMemos = res.data;
       });
     },
   },

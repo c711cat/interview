@@ -89,10 +89,10 @@ export default {
     openTheFreiend(item) {
       this.$router.push(`/conversation/${item.id}`);
       this.getTheConversation(item);
-      this.getTheFriendMemos(item);
+      this.getMemo(item);
     },
-    getTheFriendMemos(item) {
-      const api = `/memos/${item.id}`;
+    getMemo(item) {
+      const api = `/memotests/${item.id}`;
       axios.get(api).then((res) => {
         this.emitter.emit("theFriendMemoContents", res.data);
       });
