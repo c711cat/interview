@@ -7,6 +7,7 @@ export function makeServer() {
       friend: Model,
       message: Model,
       memo: Model,
+      memotest: Model,
     },
 
     seeds(server) {
@@ -63,9 +64,49 @@ export function makeServer() {
           { date: "2019/07/02 13:45", text: "Jason-2" },
         ],
       });
+      server.create("memotest", {
+        friend_id: "1",
+        date: "2019/07/01 13:45",
+        text: "Paul-01",
+      });
+      server.create("memotest", {
+        friend_id: "1",
+        date: "2019/07/02 13:45",
+        text: "Paul-02",
+      });
+      server.create("memotest", {
+        friend_id: "2",
+        date: "2019/07/01 13:45",
+        text: "Jack-01",
+      });
+      server.create("memotest", {
+        friend_id: "2",
+        date: "2019/07/02 13:45",
+        text: "Jack-02",
+      });
+      server.create("memotest", {
+        friend_id: "3",
+        date: "2019/07/01 13:45",
+        text: "Jason-01",
+      });
+      server.create("memotest", {
+        friend_id: "3",
+        date: "2019/07/02 13:45",
+        text: "Jason-02",
+      });
     },
 
     routes() {
+      this.get("/memotests/:friendId", (schema, request) => {
+        let the_list = [];
+        schema.memotests.all().filter((item) => {
+          if (item.friend_id === request.params.friendId) {
+            the_list.push(item);
+          }
+        });
+        return the_list;
+      });
+
       this.post("/memostext/:friendId", (schema, request) => {
         let attrs = JSON.parse(request.requestBody);
         let id = request.params.friendId;
