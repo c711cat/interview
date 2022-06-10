@@ -93,15 +93,6 @@ export function makeServer() {
         return schema.memotests.create(attrs);
       });
 
-      this.get("/memos/:id", (schema, request) => {
-        let the_memo = [];
-        schema.memos.all().filter((item) => {
-          if (item.id === request.params.id) {
-            the_memo = item;
-          }
-        });
-        return the_memo;
-      });
 
       this.get("/messages/:friendId", (schema, request) => {
         let id = request.params.friendId;
@@ -113,10 +104,6 @@ export function makeServer() {
           }
         });
         return the_msg;
-      });
-
-      this.get("/memos", (schema) => {
-        return schema.memos.all();
       });
 
       this.get("/friends", (schema) => {
