@@ -10,7 +10,9 @@
           cols="10"
           placeholder="輸入訊息..."
         />
-        <button class="btn-body p-py-2" type="button">新增</button>
+        <button @click.prevent="addMemo" class="btn-body p-py-2" type="button">
+          新增
+        </button>
       </div>
       <div
         v-for="(item, index) in memoContents.contents"
@@ -31,6 +33,7 @@
 
 <script>
 import Textarea from "primevue/textarea";
+import axios from "axios";
 
 export default {
   data() {
@@ -51,10 +54,24 @@ export default {
       this.memoContents = this.memoList;
     },
   },
-
+  methods: {
+    addMemo() {
+      const api = `/memostext/${this.memoContents.id}`;
+      const time = new Date().toLocaleString("taiwan", { hour12: false });
+      axios.post(api, { date: time, text: this.value }).then((res) => {
+        return res;
+      });
+      this.getTheFriendMemos();
+    },
+    getTheFriendMemos() {
+      const api = `/memos/${this.memoContents.id}`;
+      axios.get(api).then((res) => {
+        this.memoContents = res.data.memo;
+      });
+    },
+  },
   created() {
     this.emitter.on("theFriendMemoContents", (data) => {
-      console.log(data);
       this.memoContents = data.memo;
     });
   },
