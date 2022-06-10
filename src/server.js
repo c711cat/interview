@@ -6,7 +6,6 @@ export function makeServer() {
     models: {
       friend: Model,
       message: Model,
-      memo: Model,
       memotest: Model,
     },
 
@@ -46,24 +45,6 @@ export function makeServer() {
         content: ["傑森", "你好，我是潔西卡", "我喜歡的動物為", "貓,狗"],
       });
 
-      server.create("memo", {
-        contents: [
-          { date: "2019/07/01 13:45", text: "Paul-1" },
-          { date: "2019/07/02 13:45", text: "Paul-2" },
-        ],
-      });
-      server.create("memo", {
-        contents: [
-          { date: "2019/07/01 13:45", text: "Jack-1" },
-          { date: "2019/07/02 13:45", text: "Jack-2" },
-        ],
-      });
-      server.create("memo", {
-        contents: [
-          { date: "2019/07/01 13:45", text: "Jason-1" },
-          { date: "2019/07/02 13:45", text: "Jason-2" },
-        ],
-      });
       server.create("memotest", {
         friend_id: "1",
         date: "2019/07/01 13:45",
@@ -107,18 +88,11 @@ export function makeServer() {
         return the_list;
       });
 
-      this.post("/memostext/:friendId", (schema, request) => {
+      this.post("/addMemo", (schema, request) => {
         let attrs = JSON.parse(request.requestBody);
-        let id = request.params.friendId;
-        let all_memos = schema.memos.all();
-        all_memos.filter((item) => {
-          if (item.attrs.id === id) {
-            item.contents.push(attrs);
-            return item;
-          }
-        });
-        return schema.memos.create(attrs);
+        return schema.memotests.create(attrs);
       });
+
       this.get("/memos/:id", (schema, request) => {
         let the_memo = [];
         schema.memos.all().filter((item) => {
