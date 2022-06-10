@@ -128,7 +128,6 @@ export default {
     getMemo() {
       const api = `/memotests/${this.$route.params.friendId}`;
       axios.get(api).then((res) => {
-        console.log(res);
         this.friendMemos = res.data;
       });
     },

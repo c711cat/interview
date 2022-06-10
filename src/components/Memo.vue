@@ -15,7 +15,7 @@
         </button>
       </div>
       <div
-        v-for="(item, index) in memoContents.contents"
+        v-for="(item, index) in memoContents"
         :key="item + index"
         class="msgs-container p-text-left p-p-3 p-mt-3"
       >
@@ -62,10 +62,11 @@ export default {
         return res;
       });
       this.value = "";
-      this.getTheFriendMemos();
+
+      this.get_memotests();
     },
-    getTheFriendMemos() {
-      const api = `/memos/${this.memoContents.id}`;
+    get_memotests(item) {
+      const api = `/memotests/${item.id}`;
       axios.get(api).then((res) => {
         this.memoContents = res.data.memo;
       });
@@ -73,7 +74,7 @@ export default {
   },
   created() {
     this.emitter.on("theFriendMemoContents", (data) => {
-      this.memoContents = data.memo;
+      this.memoContents = data;
     });
   },
 };
