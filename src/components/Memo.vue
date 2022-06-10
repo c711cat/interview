@@ -61,6 +61,7 @@ export default {
       axios.post(api, { date: time, text: this.value }).then((res) => {
         return res;
       });
+      this.value = "";
       this.getTheFriendMemos();
     },
     getTheFriendMemos() {
