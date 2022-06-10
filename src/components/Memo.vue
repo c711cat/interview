@@ -20,6 +20,7 @@
         class="msgs-container p-text-left p-p-3 p-mt-3"
       >
         <img
+          @click.prevent="delTheMemo"
           class="delete-msg-icon"
           src="@/img/ic_close2.png"
           alt="close_icon"
@@ -55,20 +56,28 @@ export default {
     },
   },
   methods: {
+    delTheMemo() {
+      console.log("6");
+    },
     addMemo() {
-      const api = `/memostext/${this.memoContents.id}`;
       const time = new Date().toLocaleString("taiwan", { hour12: false });
-      axios.post(api, { date: time, text: this.value }).then((res) => {
-        return res;
-      });
+      axios
+        .post("/addMemo", {
+          friend_id: this.$route.params.friendId,
+          date: time,
+          text: this.value,
+        })
+        .then((res) => {
+          return res;
+        });
       this.value = "";
 
       this.get_memotests();
     },
-    get_memotests(item) {
-      const api = `/memotests/${item.id}`;
+    get_memotests() {
+      const api = `/memotests/${this.$route.params.friendId}`;
       axios.get(api).then((res) => {
-        this.memoContents = res.data.memo;
+        this.memoContents = res.data;
       });
     },
   },
