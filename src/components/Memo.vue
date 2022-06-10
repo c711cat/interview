@@ -13,7 +13,7 @@
         <button class="btn-body p-py-2" type="button">新增</button>
       </div>
       <div
-        v-for="(item, index) in memoList"
+        v-for="(item, index) in memoContents"
         :key="item + index"
         class="msgs-container p-text-left p-p-3 p-mt-3"
       >
@@ -36,15 +36,26 @@ export default {
   data() {
     return {
       value: "",
+      memoContents: [],
     };
   },
   components: { Textarea },
+  inject: ["emitter"],
   props: {
     memoList: {
       Type: Object,
     },
   },
-  created() {},
+  watch: {
+    memoList() {
+      this.memoContents = this.memoList;
+    },
+  },
+  created() {
+    this.emitter.on("theFriendMemoContents", (data) => {
+      this.memoContents = data.memo.contents;
+    });
+  },
 };
 </script>
 

@@ -89,6 +89,13 @@ export default {
     openTheFreiend(item) {
       this.$router.push(`/conversation/${item.id}`);
       this.getTheConversation(item);
+      this.getTheFriendMemos(item);
+    },
+    getTheFriendMemos(item) {
+      const api = `/memos/${item.id}`;
+      axios.get(api).then((res) => {
+        this.emitter.emit("theFriendMemoContents", res.data);
+      });
     },
   },
   created() {
