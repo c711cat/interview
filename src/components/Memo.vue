@@ -13,7 +13,7 @@
         <button class="btn-body p-py-2" type="button">新增</button>
       </div>
       <div
-        v-for="(item, index) in memoContents"
+        v-for="(item, index) in memoContents.contents"
         :key="item + index"
         class="msgs-container p-text-left p-p-3 p-mt-3"
       >
@@ -51,9 +51,11 @@ export default {
       this.memoContents = this.memoList;
     },
   },
+
   created() {
     this.emitter.on("theFriendMemoContents", (data) => {
-      this.memoContents = data.memo.contents;
+      console.log(data);
+      this.memoContents = data.memo;
     });
   },
 };
